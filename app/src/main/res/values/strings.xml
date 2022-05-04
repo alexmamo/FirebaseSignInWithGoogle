@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FirebaseSignInWithGoogle</string>
+
+    //IDs
+    <string name="web_client_id">873979809204-a9rglmu8vm5ht2i7f40ci2occacq2vfl.apps.googleusercontent.com</string>
+
+    //Menu Items
+   <string name="revoke_access_item">Revoke Access</string>
+    <string name="sign_out_item">Sign-out</string>
+
+    //Fragments
+    <string name="profile_fragment">Profile</string>
+</resources>
