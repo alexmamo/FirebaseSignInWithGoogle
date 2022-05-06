@@ -87,6 +87,16 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 
+    override fun getFirebaseAuthState() = callbackFlow  {
+        val authStateListener = AuthStateListener { auth ->
+            trySend(auth.currentUser == null)
+        }
+        auth.addAuthStateListener(authStateListener)
+        awaitClose {
+            auth.removeAuthStateListener(authStateListener)
+        }
+    }
+
     override suspend fun signOut() = flow {
         try {
             emit(Loading)
@@ -110,16 +120,6 @@ class AuthRepositoryImpl  @Inject constructor(
             emit(Success(true))
         } catch (e: Exception) {
             emit(Failure(e))
-        }
-    }
-
-    override fun getFirebaseAuthState() = callbackFlow  {
-        val authStateListener = AuthStateListener { auth ->
-            trySend(auth.currentUser == null)
-        }
-        auth.addAuthStateListener(authStateListener)
-        awaitClose {
-            auth.removeAuthStateListener(authStateListener)
         }
     }
 
