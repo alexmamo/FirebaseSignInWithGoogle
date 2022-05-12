@@ -8,7 +8,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue.serverTimestamp
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
@@ -26,15 +25,14 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
-@ExperimentalCoroutinesApi
 class AuthRepositoryImpl  @Inject constructor(
+    private val auth: FirebaseAuth,
     private var oneTapClient: SignInClient,
     @Named(SIGN_IN_REQUEST)
     private var signInRequest: BeginSignInRequest,
     @Named(SIGN_UP_REQUEST)
     private var signUpRequest: BeginSignInRequest,
     private var signInClient: GoogleSignInClient,
-    private val auth: FirebaseAuth,
     private val usersRef: CollectionReference
 ) : AuthRepository {
     override fun isUserAuthenticatedInFirebase() = auth.currentUser != null

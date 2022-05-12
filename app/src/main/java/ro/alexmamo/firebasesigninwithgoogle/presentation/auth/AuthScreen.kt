@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity.RESULT_OK
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,7 +17,6 @@ import androidx.navigation.NavController
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider.getCredential
-import kotlinx.coroutines.InternalCoroutinesApi
 import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthTopBar
@@ -27,8 +25,6 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.components.ProgressBar
 import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.ProfileScreen
 
 @Composable
-@InternalCoroutinesApi
-@ExperimentalMaterialApi
 fun AuthScreen(
     navController: NavController,
     viewModel: AuthViewModel = hiltViewModel()

@@ -5,11 +5,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
 import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.NavGraph
@@ -17,9 +15,7 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.Profi
 
 @AndroidEntryPoint
 @InternalCoroutinesApi
-@ExperimentalMaterialApi
 @ExperimentalAnimationApi
-@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavHostController
     private val authViewModel by viewModels<AuthViewModel>()

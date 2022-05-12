@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,7 +16,6 @@ import ro.alexmamo.firebasesigninwithgoogle.R
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_WITH_GOOGLE
 
 @Composable
-@ExperimentalMaterialApi
 fun SignInButton(
     onClick: () -> Unit
 ) {
@@ -33,7 +31,7 @@ fun SignInButton(
             painter = painterResource(
                 id = R.drawable.ic_google_logo
             ),
-            contentDescription = ""
+            contentDescription = null
         )
         Text(
             text = SIGN_IN_WITH_GOOGLE,

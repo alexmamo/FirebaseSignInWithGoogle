@@ -18,7 +18,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ro.alexmamo.firebasesigninwithgoogle.R
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_UP_REQUEST
@@ -28,7 +27,6 @@ import ro.alexmamo.firebasesigninwithgoogle.domain.repository.AuthRepository
 import javax.inject.Named
 
 @Module
-@ExperimentalCoroutinesApi
 @InstallIn(SingletonComponent::class)
 class AppModule {
     @Provides
@@ -96,20 +94,20 @@ class AppModule {
 
     @Provides
     fun provideAuthRepository(
+        auth: FirebaseAuth,
         oneTapClient: SignInClient,
         @Named(SIGN_IN_REQUEST)
         signInRequest: BeginSignInRequest,
         @Named(SIGN_UP_REQUEST)
         signUpRequest: BeginSignInRequest,
         signInClient: GoogleSignInClient,
-        auth: FirebaseAuth,
         usersRef: CollectionReference
     ): AuthRepository = AuthRepositoryImpl(
+        auth = auth,
         oneTapClient = oneTapClient,
         signInRequest = signInRequest,
         signUpRequest = signUpRequest,
         signInClient = signInClient,
-        auth = auth,
         usersRef = usersRef
     )
 }
