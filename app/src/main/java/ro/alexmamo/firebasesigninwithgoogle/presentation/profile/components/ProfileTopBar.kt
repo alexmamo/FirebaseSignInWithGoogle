@@ -10,14 +10,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.InternalCoroutinesApi
-import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileViewModel
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.PROFILE_SCREEN
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.REVOKE_ACCESS
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_OUT
+import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileViewModel
 
 @Composable
-@InternalCoroutinesApi
 fun ProfileTopBar(
     viewModel: ProfileViewModel = hiltViewModel(),
 ) {

@@ -20,7 +20,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.REVOKE_ACCESS_MESSAGE
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_OUT
@@ -31,7 +30,6 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.AuthS
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileTopBar
 
 @Composable
-@InternalCoroutinesApi
 fun ProfileScreen(
     navController: NavController,
     viewModel: ProfileViewModel = hiltViewModel()

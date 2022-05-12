@@ -8,13 +8,11 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.InternalCoroutinesApi
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
 import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.NavGraph
 import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.ProfileScreen
 
 @AndroidEntryPoint
-@InternalCoroutinesApi
 @ExperimentalAnimationApi
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavHostController

@@ -7,14 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import kotlinx.coroutines.InternalCoroutinesApi
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthScreen
 import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.AuthScreen
 import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.ProfileScreen
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileScreen
 
 @Composable
-@InternalCoroutinesApi
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraph (
     navController: NavHostController
