@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider.getCredential
+import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_ERROR_MESSAGE
 import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthContent
@@ -64,7 +65,9 @@ fun AuthScreen(
             oneTapSignInResponse.e?.let {
                 LaunchedEffect(Unit) {
                     print(it)
-                    viewModel.oneTapSignUp()
+                    if (it.message == SIGN_IN_ERROR_MESSAGE) {
+                        viewModel.oneTapSignUp()
+                    }
                 }
             }
         }
