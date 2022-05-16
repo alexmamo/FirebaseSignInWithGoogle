@@ -4,14 +4,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.android.gms.auth.api.identity.BeginSignInResult
@@ -19,8 +14,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider.getCredential
 import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
+import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthContent
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthTopBar
-import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.SignInButton
 import ro.alexmamo.firebasesigninwithgoogle.presentation.components.ProgressBar
 import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.ProfileScreen
 
@@ -34,14 +29,7 @@ fun AuthScreen(
             AuthTopBar()
         },
         content = { padding ->
-            Box(
-                modifier = Modifier.fillMaxSize().padding(padding),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                SignInButton {
-                    viewModel.oneTapSignIn()
-                }
-            }
+            AuthContent(padding)
         }
     )
 
