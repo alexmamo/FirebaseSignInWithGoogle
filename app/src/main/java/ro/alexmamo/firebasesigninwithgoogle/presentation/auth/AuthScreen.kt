@@ -39,8 +39,8 @@ fun AuthScreen(
                 val googleIdToken = credentials.googleIdToken
                 val googleCredentials = getCredential(googleIdToken, null)
                 viewModel.signInWithGoogle(googleCredentials)
-            } catch (e: ApiException) {
-                print(e)
+            } catch (it: ApiException) {
+                print(it)
             }
         }
     }
