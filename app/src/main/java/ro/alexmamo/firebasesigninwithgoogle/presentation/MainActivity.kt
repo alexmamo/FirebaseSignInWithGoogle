@@ -16,7 +16,7 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.Profi
 @ExperimentalAnimationApi
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavHostController
-    private val authViewModel by viewModels<AuthViewModel>()
+    private val viewModel by viewModels<AuthViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +31,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkAuthStatus() {
-        if(authViewModel.isUserAuthenticated) {
+        if(viewModel.isUserAuthenticated) {
             navController.navigate(ProfileScreen.route)
         }
     }
 
-    private fun getAuthState() = authViewModel.getAuthState()
+    private fun getAuthState() = viewModel.getAuthState()
 }
