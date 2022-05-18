@@ -19,7 +19,7 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.Prof
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
-    navigateToAuthScreen: () -> Unit,
+    navigateToAuthScreen: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
