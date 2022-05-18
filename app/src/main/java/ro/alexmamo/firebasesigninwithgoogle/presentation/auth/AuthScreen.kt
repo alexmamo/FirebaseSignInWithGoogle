@@ -8,7 +8,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider.getCredential
@@ -18,12 +17,11 @@ import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthContent
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthTopBar
 import ro.alexmamo.firebasesigninwithgoogle.presentation.components.ProgressBar
-import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.ProfileScreen
 
 @Composable
 fun AuthScreen(
-    navController: NavController,
-    viewModel: AuthViewModel = hiltViewModel()
+    viewModel: AuthViewModel = hiltViewModel(),
+    navigateToProfileScreen: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -98,7 +96,7 @@ fun AuthScreen(
                         viewModel.createUser()
                     }
                 } else {
-                    navController.navigate(ProfileScreen.route)
+                    navigateToProfileScreen()
                 }
             }
         }
@@ -114,7 +112,7 @@ fun AuthScreen(
         is Success -> {
             createUserResponse.data?.let { isUserCreated ->
                 if (isUserCreated) {
-                    navController.navigate(ProfileScreen.route)
+                    navigateToProfileScreen()
                 }
             }
         }

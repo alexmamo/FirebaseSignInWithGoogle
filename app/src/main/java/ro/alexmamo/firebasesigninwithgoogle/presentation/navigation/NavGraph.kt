@@ -27,14 +27,19 @@ fun NavGraph (
             route = AuthScreen.route
         ) {
             AuthScreen(
-                navController = navController
+                navigateToProfileScreen = {
+                    navController.navigate(ProfileScreen.route)
+                }
             )
         }
         composable(
             route = ProfileScreen.route
         ) {
             ProfileScreen(
-                navController = navController
+                navigateToAuthScreen = {
+                    navController.popBackStack()
+                    navController.navigate(AuthScreen.route)
+                }
             )
         }
     }
