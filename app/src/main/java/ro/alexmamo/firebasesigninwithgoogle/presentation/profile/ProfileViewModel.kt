@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response
+import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.Success
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.AuthRepository
 import javax.inject.Inject
 
@@ -14,10 +15,10 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val repo: AuthRepository
 ): ViewModel() {
-    private val _signOutState = mutableStateOf<Response<Boolean>>(Response.Success(false))
+    private val _signOutState = mutableStateOf<Response<Boolean>>(Success(false))
     val signOutState: State<Response<Boolean>> = _signOutState
 
-    private val _revokeAccessState = mutableStateOf<Response<Boolean>>(Response.Success(false))
+    private val _revokeAccessState = mutableStateOf<Response<Boolean>>(Success(false))
     val revokeAccessState: State<Response<Boolean>> = _revokeAccessState
 
     val displayName get() = repo.getDisplayName()
