@@ -53,6 +53,16 @@ fun ProfileScreen(
         }
     }
 
+    fun showSnackBar() = coroutineScope.launch {
+        val result = scaffoldState.snackbarHostState.showSnackbar(
+            message = REVOKE_ACCESS_MESSAGE,
+            actionLabel = SIGN_OUT
+        )
+        if (result == ActionPerformed) {
+            viewModel.signOut()
+        }
+    }
+
     when(val revokeAccessResponse = viewModel.revokeAccessState.value) {
         is Loading -> ProgressBar()
         is Success -> {
@@ -68,16 +78,7 @@ fun ProfileScreen(
         is Failure -> revokeAccessResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
-
-                coroutineScope.launch {
-                    val result = scaffoldState.snackbarHostState.showSnackbar(
-                        message = REVOKE_ACCESS_MESSAGE,
-                        actionLabel = SIGN_OUT
-                    )
-                    if (result == ActionPerformed) {
-                        viewModel.signOut()
-                    }
-                }
+                showSnackBar()
             }
         }
     }

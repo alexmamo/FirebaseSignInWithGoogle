@@ -35,7 +35,7 @@ fun SignInButton(
         )
         Text(
             text = SIGN_IN_WITH_GOOGLE,
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(6.dp),
             fontSize = 18.sp
         )
     }
