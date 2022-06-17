@@ -11,15 +11,14 @@ import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileViewModel
 
 @Composable
 fun ProfileContent(
     padding: PaddingValues,
-    viewModel: ProfileViewModel = hiltViewModel()
+    photoUrl: String,
+    displayName: String
 ) {
     Column(
         modifier = Modifier.fillMaxSize().padding(padding),
@@ -30,7 +29,7 @@ fun ProfileContent(
         )
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(viewModel.photoUrl)
+                .data(photoUrl)
                 .crossfade(true)
                 .build(),
             contentDescription = null,
@@ -38,7 +37,7 @@ fun ProfileContent(
             modifier = Modifier.clip(CircleShape).width(96.dp).height(96.dp)
         )
         Text(
-            text = viewModel.displayName,
+            text = displayName,
             fontSize = 24.sp
         )
     }

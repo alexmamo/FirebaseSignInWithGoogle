@@ -26,10 +26,21 @@ fun ProfileScreen(
 
     Scaffold(
         topBar = {
-            ProfileTopBar()
+            ProfileTopBar(
+                signOut = {
+                    viewModel.signOut()
+                },
+                revokeAccess = {
+                    viewModel.revokeAccess()
+                }
+            )
         },
         content = { padding ->
-            ProfileContent(padding)
+            ProfileContent(
+                padding = padding,
+                photoUrl = viewModel.photoUrl,
+                displayName = viewModel.displayName
+            )
         },
         scaffoldState = scaffoldState
     )

@@ -9,15 +9,14 @@ import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.PROFILE_SCREEN
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.REVOKE_ACCESS
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_OUT
-import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileViewModel
 
 @Composable
 fun ProfileTopBar(
-    viewModel: ProfileViewModel = hiltViewModel(),
+    signOut: () -> Unit,
+    revokeAccess: () -> Unit
 ) {
     var openMenu by remember { mutableStateOf(false) }
 
@@ -56,7 +55,7 @@ fun ProfileTopBar(
             ) {
                 DropdownMenuItem(
                     onClick = {
-                        viewModel.signOut()
+                        signOut()
                         openMenu = !openMenu
                     }
                 ) {
@@ -66,7 +65,7 @@ fun ProfileTopBar(
                 }
                 DropdownMenuItem(
                     onClick = {
-                        viewModel.revokeAccess()
+                        revokeAccess()
                         openMenu = !openMenu
                     }
                 ) {
