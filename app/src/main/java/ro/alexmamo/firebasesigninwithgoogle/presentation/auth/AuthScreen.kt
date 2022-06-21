@@ -26,15 +26,16 @@ fun AuthScreen(
     Scaffold(
         topBar = {
             AuthTopBar()
+        },
+        content = { padding ->
+            AuthContent(
+                padding = padding,
+                oneTapSignIn = {
+                    viewModel.oneTapSignIn()
+                }
+            )
         }
-    ) { padding ->
-        AuthContent(
-            padding = padding,
-            oneTapSignIn = {
-                viewModel.oneTapSignIn()
-            }
-        )
-    }
+    )
 
     val launcher =  rememberLauncherForActivityResult(StartIntentSenderForResult()) { result ->
         if (result.resultCode == RESULT_OK) {

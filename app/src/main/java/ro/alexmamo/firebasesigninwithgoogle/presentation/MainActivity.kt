@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
                 navController = navController
             )
             checkAuthStatus()
-            getAuthState()
         }
     }
 
@@ -35,6 +34,4 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(ProfileScreen.route)
         }
     }
-
-    private fun getAuthState() = viewModel.getAuthState()
 }

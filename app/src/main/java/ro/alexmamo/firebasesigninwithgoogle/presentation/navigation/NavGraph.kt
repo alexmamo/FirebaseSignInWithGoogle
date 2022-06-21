@@ -14,7 +14,7 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileScreen
 
 @Composable
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraph (
+fun NavGraph(
     navController: NavHostController
 ) {
     AnimatedNavHost(

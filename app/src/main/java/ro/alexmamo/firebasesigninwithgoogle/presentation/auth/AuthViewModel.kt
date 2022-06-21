@@ -35,7 +35,11 @@ class AuthViewModel @Inject constructor(
     private val _createUserState = mutableStateOf<Response<Boolean>>(Success(null))
     val createUserState: State<Response<Boolean>> = _createUserState
 
-    fun getAuthState() = liveData(Dispatchers.IO) {
+    init {
+        getAuthState()
+    }
+
+    private fun getAuthState() = liveData(Dispatchers.IO) {
         repo.getFirebaseAuthState().collect { response ->
             emit(response)
         }

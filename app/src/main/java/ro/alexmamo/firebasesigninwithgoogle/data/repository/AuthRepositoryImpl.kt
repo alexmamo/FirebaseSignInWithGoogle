@@ -121,7 +121,7 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 
-    override fun getDisplayName() = auth.currentUser?.displayName.toString()
+    override fun getDisplayName() = auth.currentUser?.displayName ?: ""
 
     override fun getPhotoUrl() = auth.currentUser?.photoUrl.toString()
 }
