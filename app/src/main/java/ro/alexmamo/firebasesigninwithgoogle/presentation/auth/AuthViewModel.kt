@@ -41,35 +41,27 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun oneTapSignIn() {
-        viewModelScope.launch {
-            repo.oneTapSignInWithGoogle().collect { response ->
-                _oneTapSignInState.value = response
-            }
+    fun oneTapSignIn() = viewModelScope.launch {
+        repo.oneTapSignInWithGoogle().collect { response ->
+            _oneTapSignInState.value = response
         }
     }
 
-    fun oneTapSignUp() {
-        viewModelScope.launch {
-            repo.oneTapSignUpWithGoogle().collect { response ->
-                _oneTapSignUpState.value = response
-            }
+    fun oneTapSignUp() = viewModelScope.launch {
+        repo.oneTapSignUpWithGoogle().collect { response ->
+            _oneTapSignUpState.value = response
         }
     }
 
-    fun signInWithGoogle(googleCredential: AuthCredential) {
-        viewModelScope.launch {
-            repo.firebaseSignInWithGoogle(googleCredential).collect { response ->
-                _signInState.value = response
-            }
+    fun signInWithGoogle(googleCredential: AuthCredential) = viewModelScope.launch {
+        repo.firebaseSignInWithGoogle(googleCredential).collect { response ->
+            _signInState.value = response
         }
     }
 
-    fun createUser() {
-        viewModelScope.launch {
-            repo.createUserInFirestore().collect { response ->
-                _createUserState.value = response
-            }
+    fun createUser() = viewModelScope.launch {
+        repo.createUserInFirestore().collect { response ->
+            _createUserState.value = response
         }
     }
 }

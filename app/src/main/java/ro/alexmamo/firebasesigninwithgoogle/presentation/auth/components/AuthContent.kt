@@ -13,14 +13,16 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
 @Composable
 fun AuthContent(
     padding: PaddingValues,
-    viewModel: AuthViewModel = hiltViewModel()
+    oneTapSignIn: () -> Unit
 ) {
     Box(
         modifier = Modifier.fillMaxSize().padding(padding),
         contentAlignment = BottomCenter
     ) {
-        SignInButton {
-            viewModel.oneTapSignIn()
-        }
+        SignInButton(
+            onClick = {
+                oneTapSignIn()
+            }
+        )
     }
 }

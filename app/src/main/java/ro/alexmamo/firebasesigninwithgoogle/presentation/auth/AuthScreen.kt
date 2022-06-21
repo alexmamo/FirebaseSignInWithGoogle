@@ -26,11 +26,15 @@ fun AuthScreen(
     Scaffold(
         topBar = {
             AuthTopBar()
-        },
-        content = { padding ->
-            AuthContent(padding)
         }
-    )
+    ) { padding ->
+        AuthContent(
+            padding = padding,
+            oneTapSignIn = {
+                viewModel.oneTapSignIn()
+            }
+        )
+    }
 
     val launcher =  rememberLauncherForActivityResult(StartIntentSenderForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
@@ -52,20 +56,16 @@ fun AuthScreen(
 
     when(val oneTapSignInResponse = viewModel.oneTapSignInState.value) {
         is Loading -> ProgressBar()
-        is Success -> {
-            oneTapSignInResponse.data?.let {
-                LaunchedEffect(it) {
-                    launch(it)
-                }
+        is Success -> oneTapSignInResponse.data?.let {
+            LaunchedEffect(it) {
+                launch(it)
             }
         }
-        is Failure -> {
-            oneTapSignInResponse.e?.let {
-                LaunchedEffect(Unit) {
-                    print(it)
-                    if (it.message == SIGN_IN_ERROR_MESSAGE) {
-                        viewModel.oneTapSignUp()
-                    }
+        is Failure -> oneTapSignInResponse.e?.let {
+            LaunchedEffect(Unit) {
+                print(it)
+                if (it.message == SIGN_IN_ERROR_MESSAGE) {
+                    viewModel.oneTapSignUp()
                 }
             }
         }
@@ -73,11 +73,9 @@ fun AuthScreen(
 
     when(val oneTapSignUpResponse = viewModel.oneTapSignUpState.value) {
         is Loading -> ProgressBar()
-        is Success -> {
-            oneTapSignUpResponse.data?.let {
-                LaunchedEffect(it) {
-                    launch(it)
-                }
+        is Success -> oneTapSignUpResponse.data?.let {
+            LaunchedEffect(it) {
+                launch(it)
             }
         }
         is Failure -> oneTapSignUpResponse.e?.let {
@@ -89,15 +87,13 @@ fun AuthScreen(
 
     when(val signInResponse = viewModel.signInState.value) {
         is Loading -> ProgressBar()
-        is Success -> {
-            signInResponse.data?.let { isNewUser ->
-                if (isNewUser) {
-                    LaunchedEffect(isNewUser) {
-                        viewModel.createUser()
-                    }
-                } else {
-                    navigateToProfileScreen()
+        is Success -> signInResponse.data?.let { isNewUser ->
+            if (isNewUser) {
+                LaunchedEffect(isNewUser) {
+                    viewModel.createUser()
                 }
+            } else {
+                navigateToProfileScreen()
             }
         }
         is Failure -> signInResponse.e?.let {
@@ -109,11 +105,9 @@ fun AuthScreen(
 
     when(val createUserResponse = viewModel.createUserState.value) {
         is Loading -> ProgressBar()
-        is Success -> {
-            createUserResponse.data?.let { isUserCreated ->
-                if (isUserCreated) {
-                    navigateToProfileScreen()
-                }
+        is Success -> createUserResponse.data?.let { isUserCreated ->
+            if (isUserCreated) {
+                navigateToProfileScreen()
             }
         }
         is Failure -> createUserResponse.e?.let {

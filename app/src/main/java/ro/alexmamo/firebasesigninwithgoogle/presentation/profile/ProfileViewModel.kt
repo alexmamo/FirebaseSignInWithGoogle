@@ -25,19 +25,15 @@ class ProfileViewModel @Inject constructor(
 
     val photoUrl get() = repo.getPhotoUrl()
 
-    fun signOut() {
-        viewModelScope.launch {
-            repo.signOut().collect { response ->
-                _signOutState.value = response
-            }
+    fun signOut() = viewModelScope.launch {
+        repo.signOut().collect { response ->
+            _signOutState.value = response
         }
     }
 
-    fun revokeAccess() {
-        viewModelScope.launch {
-            repo.revokeAccess().collect { response ->
-                _revokeAccessState.value = response
-            }
+    fun revokeAccess() = viewModelScope.launch {
+        repo.revokeAccess().collect { response ->
+            _revokeAccessState.value = response
         }
     }
 }

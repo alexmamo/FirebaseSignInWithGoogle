@@ -47,13 +47,10 @@ fun ProfileScreen(
 
     when(val signOutResponse = viewModel.signOutState.value) {
         is Loading -> ProgressBar()
-        is Success -> {
-            val signedOut = signOutResponse.data
-            signedOut?.let {
-                if (signedOut) {
-                    LaunchedEffect(signOutResponse.data) {
-                        navigateToAuthScreen()
-                    }
+        is Success -> signOutResponse.data?.let { signedOut ->
+            if (signedOut) {
+                LaunchedEffect(signOutResponse.data) {
+                    navigateToAuthScreen()
                 }
             }
         }
@@ -76,13 +73,10 @@ fun ProfileScreen(
 
     when(val revokeAccessResponse = viewModel.revokeAccessState.value) {
         is Loading -> ProgressBar()
-        is Success -> {
-            val accessRevoked = revokeAccessResponse.data
-            accessRevoked?.let {
-                if (accessRevoked) {
-                    LaunchedEffect(revokeAccessResponse.data) {
-                        navigateToAuthScreen()
-                    }
+        is Success -> revokeAccessResponse.data?.let { accessRevoked ->
+            if (accessRevoked) {
+                LaunchedEffect(revokeAccessResponse.data) {
+                    navigateToAuthScreen()
                 }
             }
         }
