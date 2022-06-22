@@ -20,7 +20,7 @@ fun NavGraph(
     AnimatedNavHost(
         navController = navController,
         startDestination = AuthScreen.route,
-        enterTransition = { EnterTransition.None },
+        enterTransition = {EnterTransition.None },
         exitTransition = { ExitTransition.None }
     ) {
         composable(
