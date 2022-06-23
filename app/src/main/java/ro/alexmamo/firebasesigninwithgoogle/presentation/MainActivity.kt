@@ -5,7 +5,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,22 +21,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            initNavController()
-            initNavGraph()
+            navController = rememberAnimatedNavController()
+            NavGraph(
+                navController = navController
+            )
             checkAuthStatus()
+            getAuthState()
         }
-    }
-
-    @Composable
-    private fun initNavController() {
-        navController = rememberAnimatedNavController()
-    }
-
-    @Composable
-    private fun initNavGraph() {
-        NavGraph(
-            navController = navController
-        )
     }
 
     private fun checkAuthStatus() {
@@ -45,4 +35,6 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(ProfileScreen.route)
         }
     }
+
+    private fun getAuthState() = viewModel.getAuthState()
 }

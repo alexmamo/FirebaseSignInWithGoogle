@@ -94,7 +94,9 @@ fun AuthScreen(
                     viewModel.createUser()
                 }
             } else {
-                navigateToProfileScreen()
+                LaunchedEffect(Unit) {
+                    navigateToProfileScreen()
+                }
             }
         }
         is Failure -> signInResponse.e?.let {
@@ -108,7 +110,9 @@ fun AuthScreen(
         is Loading -> ProgressBar()
         is Success -> createUserResponse.data?.let { isUserCreated ->
             if (isUserCreated) {
-                navigateToProfileScreen()
+                LaunchedEffect(Unit) {
+                    navigateToProfileScreen()
+                }
             }
         }
         is Failure -> createUserResponse.e?.let {
