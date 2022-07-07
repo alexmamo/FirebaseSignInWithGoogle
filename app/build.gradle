@@ -31,7 +31,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11
-        useIR = true
         kotlin.sourceSets.all {
             languageSettings.optIn("kotlin.RequiresOptIn")
         }
@@ -41,7 +40,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion kotlin_version
     }
     packagingOptions {
         resources {
