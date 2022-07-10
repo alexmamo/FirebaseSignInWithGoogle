@@ -16,7 +16,7 @@ import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthContent
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthTopBar
-import ro.alexmamo.firebasesigninwithgoogle.presentation.components.ProgressBar
+import ro.alexmamo.firebasesigninwithgoogle.components.ProgressBar
 
 @Composable
 fun AuthScreen(

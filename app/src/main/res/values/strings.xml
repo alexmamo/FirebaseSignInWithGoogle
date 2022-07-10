@@ -7,7 +7,4 @@
     //Menu Items
    <string name="revoke_access_item">Revoke Access</string>
     <string name="sign_out_item">Sign-out</string>
-
-    //Fragments
-    <string name="profile_fragment">Profile</string>
 </resources>

@@ -9,8 +9,8 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
-import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.NavGraph
-import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.ProfileScreen
+import ro.alexmamo.firebasesigninwithgoogle.navigation.NavGraph
+import ro.alexmamo.firebasesigninwithgoogle.navigation.Screen.ProfileScreen
 
 @AndroidEntryPoint
 @ExperimentalAnimationApi

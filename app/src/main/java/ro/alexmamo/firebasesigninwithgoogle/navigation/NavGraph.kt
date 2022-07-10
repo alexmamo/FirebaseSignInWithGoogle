@@ -1,4 +1,4 @@
-package ro.alexmamo.firebasesigninwithgoogle.presentation.navigation
+package ro.alexmamo.firebasesigninwithgoogle.navigation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -8,8 +8,8 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthScreen
-import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.AuthScreen
-import ro.alexmamo.firebasesigninwithgoogle.presentation.navigation.Screen.ProfileScreen
+import ro.alexmamo.firebasesigninwithgoogle.navigation.Screen.AuthScreen
+import ro.alexmamo.firebasesigninwithgoogle.navigation.Screen.ProfileScreen
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileScreen
 
 @Composable

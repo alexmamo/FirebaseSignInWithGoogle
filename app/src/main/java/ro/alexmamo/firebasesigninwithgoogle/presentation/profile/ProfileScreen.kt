@@ -12,7 +12,7 @@ import ro.alexmamo.firebasesigninwithgoogle.core.Constants.REVOKE_ACCESS_MESSAGE
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_OUT
 import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
-import ro.alexmamo.firebasesigninwithgoogle.presentation.components.ProgressBar
+import ro.alexmamo.firebasesigninwithgoogle.components.ProgressBar
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileContent
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileTopBar
 

@@ -1,4 +1,4 @@
-package ro.alexmamo.firebasesigninwithgoogle.presentation.navigation
+package ro.alexmamo.firebasesigninwithgoogle.navigation
 
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.AUTH_SCREEN
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.PROFILE_SCREEN
