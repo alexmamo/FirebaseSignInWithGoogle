@@ -10,7 +10,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -21,7 +20,6 @@ import dagger.hilt.components.SingletonComponent
 import ro.alexmamo.firebasesigninwithgoogle.R
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_UP_REQUEST
-import ro.alexmamo.firebasesigninwithgoogle.core.Constants.USERS_REF
 import ro.alexmamo.firebasesigninwithgoogle.data.repository.AuthRepositoryImpl
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.AuthRepository
 import javax.inject.Named
@@ -39,11 +37,6 @@ class AppModule {
 
     @Provides
     fun provideFirebaseFirestore() = Firebase.firestore
-
-    @Provides
-    fun provideUsersRef(
-        db: FirebaseFirestore
-    ) = db.collection(USERS_REF)
 
     @Provides
     fun provideOneTapClient(
@@ -100,13 +93,13 @@ class AppModule {
         @Named(SIGN_UP_REQUEST)
         signUpRequest: BeginSignInRequest,
         signInClient: GoogleSignInClient,
-        usersRef: CollectionReference
+        db: FirebaseFirestore
     ): AuthRepository = AuthRepositoryImpl(
         auth = auth,
         oneTapClient = oneTapClient,
         signInRequest = signInRequest,
         signUpRequest = signUpRequest,
         signInClient = signInClient,
-        usersRef = usersRef
+        db = db
     )
 }

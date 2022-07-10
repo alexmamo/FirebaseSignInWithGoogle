@@ -6,8 +6,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue.serverTimestamp
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
@@ -18,6 +18,7 @@ import ro.alexmamo.firebasesigninwithgoogle.core.Constants.EMAIL
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.PHOTO_URL
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_UP_REQUEST
+import ro.alexmamo.firebasesigninwithgoogle.core.Constants.USERS_REF
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.AuthRepository
 import javax.inject.Inject
@@ -33,7 +34,7 @@ class AuthRepositoryImpl  @Inject constructor(
     @Named(SIGN_UP_REQUEST)
     private var signUpRequest: BeginSignInRequest,
     private var signInClient: GoogleSignInClient,
-    private val usersRef: CollectionReference
+    private val db: FirebaseFirestore
 ) : AuthRepository {
     override fun isUserAuthenticatedInFirebase() = auth.currentUser != null
 
@@ -72,7 +73,7 @@ class AuthRepositoryImpl  @Inject constructor(
         try {
             emit(Loading)
             auth.currentUser?.apply {
-                usersRef.document(uid).set(mapOf(
+                db.collection(USERS_REF).document(uid).set(mapOf(
                     DISPLAY_NAME to displayName,
                     EMAIL to email,
                     PHOTO_URL to photoUrl?.toString(),
@@ -110,7 +111,7 @@ class AuthRepositoryImpl  @Inject constructor(
         try {
             emit(Loading)
             auth.currentUser?.apply {
-                usersRef.document(uid).delete().await()
+                db.collection(USERS_REF).document(uid).delete().await()
                 delete().await()
                 signInClient.revokeAccess().await()
                 oneTapClient.signOut().await()
