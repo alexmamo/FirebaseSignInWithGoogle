@@ -55,7 +55,6 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     //AndroidX
     implementation "androidx.core:core-ktx:$core_version"
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$live_data_version"
     //Material
     implementation "com.google.android.material:material:$material_version"
