@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.AUTH_SCREEN
 
 @Composable
-fun AuthTopBar() {
+fun AuthTopAppBar() {
     TopAppBar (
         title = {
             Text(
