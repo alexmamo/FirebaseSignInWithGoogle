@@ -14,7 +14,7 @@ import ro.alexmamo.firebasesigninwithgoogle.core.Constants.REVOKE_ACCESS
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_OUT
 
 @Composable
-fun ProfileTopAppBar(
+fun ProfileTopBar(
     signOut: () -> Unit,
     revokeAccess: () -> Unit
 ) {

@@ -14,7 +14,7 @@ import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.components.ProgressBar
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileContent
-import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileTopAppBar
+import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileTopBar
 
 @Composable
 fun ProfileScreen(
@@ -26,7 +26,7 @@ fun ProfileScreen(
 
     Scaffold(
         topBar = {
-            ProfileTopAppBar(
+            ProfileTopBar(
                 signOut = {
                     viewModel.signOut()
                 },
