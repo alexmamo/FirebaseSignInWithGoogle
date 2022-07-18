@@ -18,9 +18,7 @@ fun AuthContent(
         contentAlignment = BottomCenter
     ) {
         SignInButton(
-            onClick = {
-                oneTapSignIn()
-            }
+            onClick = oneTapSignIn
         )
     }
 }
