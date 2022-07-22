@@ -1,7 +1,8 @@
 package ro.alexmamo.firebasesigninwithgoogle.presentation.profile
 
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,25 +16,22 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val repo: AuthRepository
 ): ViewModel() {
-    private val _signOutState = mutableStateOf<Response<Boolean>>(Success(false))
-    val signOutState: State<Response<Boolean>> = _signOutState
-
-    private val _revokeAccessState = mutableStateOf<Response<Boolean>>(Success(false))
-    val revokeAccessState: State<Response<Boolean>> = _revokeAccessState
-
+    var signOutResponse by mutableStateOf<Response<Boolean>>(Success(false))
+        private set
+    var revokeAccessResponse by mutableStateOf<Response<Boolean>>(Success(false))
+        private set
     val displayName get() = repo.getDisplayName()
-
     val photoUrl get() = repo.getPhotoUrl()
 
     fun signOut() = viewModelScope.launch {
         repo.signOut().collect { response ->
-            _signOutState.value = response
+            signOutResponse = response
         }
     }
 
     fun revokeAccess() = viewModelScope.launch {
         repo.revokeAccess().collect { response ->
-            _revokeAccessState.value = response
+            revokeAccessResponse = response
         }
     }
 }

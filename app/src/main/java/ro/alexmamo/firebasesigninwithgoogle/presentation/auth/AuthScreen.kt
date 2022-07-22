@@ -11,12 +11,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider.getCredential
+import ro.alexmamo.firebasesigninwithgoogle.components.ProgressBar
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_ERROR_MESSAGE
 import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthContent
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthTopBar
-import ro.alexmamo.firebasesigninwithgoogle.components.ProgressBar
 
 @Composable
 fun AuthScreen(
@@ -55,7 +55,7 @@ fun AuthScreen(
         launcher.launch(intent)
     }
 
-    when(val oneTapSignInResponse = viewModel.oneTapSignInState.value) {
+    when(val oneTapSignInResponse = viewModel.oneTapSignInResponse) {
         is Loading -> ProgressBar()
         is Success -> oneTapSignInResponse.data?.let {
             LaunchedEffect(it) {
@@ -72,7 +72,7 @@ fun AuthScreen(
         }
     }
 
-    when(val oneTapSignUpResponse = viewModel.oneTapSignUpState.value) {
+    when(val oneTapSignUpResponse = viewModel.oneTapSignUpResponse) {
         is Loading -> ProgressBar()
         is Success -> oneTapSignUpResponse.data?.let {
             LaunchedEffect(it) {
@@ -86,7 +86,7 @@ fun AuthScreen(
         }
     }
 
-    when(val signInResponse = viewModel.signInState.value) {
+    when(val signInResponse = viewModel.signInResponse) {
         is Loading -> ProgressBar()
         is Success -> signInResponse.data?.let { isNewUser ->
             if (isNewUser) {
@@ -106,7 +106,7 @@ fun AuthScreen(
         }
     }
 
-    when(val createUserResponse = viewModel.createUserState.value) {
+    when(val createUserResponse = viewModel.createUserResponse) {
         is Loading -> ProgressBar()
         is Success -> createUserResponse.data?.let { isUserCreated ->
             if (isUserCreated) {

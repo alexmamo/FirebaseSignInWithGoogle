@@ -1,7 +1,8 @@
 package ro.alexmamo.firebasesigninwithgoogle.presentation.auth
 
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
@@ -22,18 +23,14 @@ class AuthViewModel @Inject constructor(
     val oneTapClient: SignInClient
 ): ViewModel() {
     val isUserAuthenticated get() = repo.isUserAuthenticatedInFirebase()
-
-    private val _oneTapSignInState = mutableStateOf<Response<BeginSignInResult>>(Success(null))
-    val oneTapSignInState: State<Response<BeginSignInResult>> = _oneTapSignInState
-
-    private val _oneTapSignUpState = mutableStateOf<Response<BeginSignInResult>>(Success(null))
-    val oneTapSignUpState: State<Response<BeginSignInResult>> = _oneTapSignUpState
-
-    private val _signInState = mutableStateOf<Response<Boolean>>(Success(null))
-    val signInState: State<Response<Boolean>> = _signInState
-
-    private val _createUserState = mutableStateOf<Response<Boolean>>(Success(null))
-    val createUserState: State<Response<Boolean>> = _createUserState
+    var oneTapSignInResponse by mutableStateOf<Response<BeginSignInResult>>(Success(null))
+        private set
+    var oneTapSignUpResponse by mutableStateOf<Response<BeginSignInResult>>(Success(null))
+        private set
+    var signInResponse by mutableStateOf<Response<Boolean>>(Success(null))
+        private set
+    var createUserResponse by mutableStateOf<Response<Boolean>>(Success(null))
+        private set
 
     fun getAuthState() = liveData(Dispatchers.IO) {
         repo.getFirebaseAuthState().collect { response ->
@@ -43,25 +40,25 @@ class AuthViewModel @Inject constructor(
 
     fun oneTapSignIn() = viewModelScope.launch {
         repo.oneTapSignInWithGoogle().collect { response ->
-            _oneTapSignInState.value = response
+            oneTapSignInResponse = response
         }
     }
 
     fun oneTapSignUp() = viewModelScope.launch {
         repo.oneTapSignUpWithGoogle().collect { response ->
-            _oneTapSignUpState.value = response
+            oneTapSignUpResponse = response
         }
     }
 
     fun signInWithGoogle(googleCredential: AuthCredential) = viewModelScope.launch {
         repo.firebaseSignInWithGoogle(googleCredential).collect { response ->
-            _signInState.value = response
+            signInResponse = response
         }
     }
 
     fun createUser() = viewModelScope.launch {
         repo.createUserInFirestore().collect { response ->
-            _createUserState.value = response
+            createUserResponse = response
         }
     }
 }
