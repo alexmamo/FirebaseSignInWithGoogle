@@ -1,9 +1,9 @@
 package ro.alexmamo.firebasesigninwithgoogle.presentation.auth
 
+import android.app.Activity.RESULT_OK
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
-import androidx.appcompat.app.AppCompatActivity.RESULT_OK
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

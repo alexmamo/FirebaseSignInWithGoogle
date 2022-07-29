@@ -1,9 +1,9 @@
 package ro.alexmamo.firebasesigninwithgoogle.presentation
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -14,7 +14,7 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
 
 @AndroidEntryPoint
 @ExperimentalAnimationApi
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
     private val viewModel by viewModels<AuthViewModel>()
 
