@@ -26,6 +26,9 @@ object Constants {
     const val AUTH_SCREEN = "Authentication"
     const val PROFILE_SCREEN = "Profile"
 
+    //Empty Value
+    const val NO_DISPLAY_NAME = ""
+
     //Messages
     const val SIGN_IN_ERROR_MESSAGE = "16: Cannot find a matching credential."
     const val REVOKE_ACCESS_MESSAGE = "You need to re-authenticate before revoking the access."

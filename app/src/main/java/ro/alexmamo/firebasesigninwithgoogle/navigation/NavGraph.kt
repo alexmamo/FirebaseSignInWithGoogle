@@ -7,13 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthScreen
 import ro.alexmamo.firebasesigninwithgoogle.navigation.Screen.AuthScreen
 import ro.alexmamo.firebasesigninwithgoogle.navigation.Screen.ProfileScreen
+import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthScreen
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileScreen
 
 @Composable
-@OptIn(ExperimentalAnimationApi::class)
+@ExperimentalAnimationApi
 fun NavGraph(
     navController: NavHostController
 ) {

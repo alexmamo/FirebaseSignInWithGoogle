@@ -1,14 +1,9 @@
 package ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.PROFILE_SCREEN
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.REVOKE_ACCESS
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_OUT
@@ -20,33 +15,23 @@ fun ProfileTopBar(
 ) {
     var openMenu by remember { mutableStateOf(false) }
 
-    TopAppBar (
+    TopAppBar(
         title = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = PROFILE_SCREEN
-                )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    IconButton(
-                        onClick = {
-                            openMenu = !openMenu
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.MoreVert,
-                            contentDescription = null,
-                        )
-                    }
-                }
-            }
+            Text(
+                text = PROFILE_SCREEN
+            )
         },
         actions = {
+            IconButton(
+                onClick = {
+                    openMenu = !openMenu
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.MoreVert,
+                    contentDescription = null,
+                )
+            }
             DropdownMenu(
                 expanded = openMenu,
                 onDismissRequest = {

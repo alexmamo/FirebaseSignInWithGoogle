@@ -15,6 +15,7 @@ import kotlinx.coroutines.tasks.await
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.CREATED_AT
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.DISPLAY_NAME
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.EMAIL
+import ro.alexmamo.firebasesigninwithgoogle.core.Constants.NO_DISPLAY_NAME
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.PHOTO_URL
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_UP_REQUEST
@@ -122,7 +123,7 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 
-    override fun getDisplayName() = auth.currentUser?.displayName ?: ""
+    override fun getDisplayName() = auth.currentUser?.displayName ?: NO_DISPLAY_NAME
 
     override fun getPhotoUrl() = auth.currentUser?.photoUrl.toString()
 }
