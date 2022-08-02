@@ -23,6 +23,9 @@ class AuthViewModel @Inject constructor(
     val oneTapClient: SignInClient
 ): ViewModel() {
     val isUserAuthenticated get() = repo.isUserAuthenticatedInFirebase()
+    val displayName get() = repo.getDisplayName()
+    val photoUrl get() = repo.getPhotoUrl()
+
     var oneTapSignInResponse by mutableStateOf<Response<BeginSignInResult>>(Success(null))
         private set
     var oneTapSignUpResponse by mutableStateOf<Response<BeginSignInResult>>(Success(null))
@@ -30,6 +33,10 @@ class AuthViewModel @Inject constructor(
     var signInResponse by mutableStateOf<Response<Boolean>>(Success(null))
         private set
     var createUserResponse by mutableStateOf<Response<Boolean>>(Success(null))
+        private set
+    var signOutResponse by mutableStateOf<Response<Boolean>>(Success(false))
+        private set
+    var revokeAccessResponse by mutableStateOf<Response<Boolean>>(Success(false))
         private set
 
     fun getAuthState() = liveData(Dispatchers.IO) {
@@ -59,6 +66,18 @@ class AuthViewModel @Inject constructor(
     fun createUser() = viewModelScope.launch {
         repo.createUserInFirestore().collect { response ->
             createUserResponse = response
+        }
+    }
+
+    fun signOut() = viewModelScope.launch {
+        repo.signOut().collect { response ->
+            signOutResponse = response
+        }
+    }
+
+    fun revokeAccess() = viewModelScope.launch {
+        repo.revokeAccess().collect { response ->
+            revokeAccessResponse = response
         }
     }
 }
