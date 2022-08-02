@@ -62,7 +62,7 @@ fun AuthScreen(
                 launch(it)
             }
         }
-        is Failure -> oneTapSignInResponse.e?.let {
+        is Error -> oneTapSignInResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
                 if (it.message == SIGN_IN_ERROR_MESSAGE) {
@@ -79,7 +79,7 @@ fun AuthScreen(
                 launch(it)
             }
         }
-        is Failure -> oneTapSignUpResponse.e?.let {
+        is Error -> oneTapSignUpResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
             }
@@ -99,7 +99,7 @@ fun AuthScreen(
                 }
             }
         }
-        is Failure -> signInResponse.e?.let {
+        is Error -> signInResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
             }
@@ -115,7 +115,7 @@ fun AuthScreen(
                 }
             }
         }
-        is Failure -> createUserResponse.e?.let {
+        is Error -> createUserResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
             }

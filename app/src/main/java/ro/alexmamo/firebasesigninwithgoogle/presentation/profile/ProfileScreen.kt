@@ -54,7 +54,7 @@ fun ProfileScreen(
                 }
             }
         }
-        is Failure -> signOutResponse.e?.let {
+        is Error -> signOutResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
             }
@@ -80,7 +80,7 @@ fun ProfileScreen(
                 }
             }
         }
-        is Failure -> revokeAccessResponse.e?.let {
+        is Error -> revokeAccessResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
                 showSnackBar()
