@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response
 
 interface AuthRepository {
-    fun isUserAuthenticatedInFirebase(): Boolean
+    val isUserAuthenticatedInFirebase: Boolean
+    val displayName: String
+    val photoUrl: String
 
     suspend fun oneTapSignInWithGoogle(): Flow<Response<BeginSignInResult>>
 
@@ -21,8 +23,4 @@ interface AuthRepository {
     suspend fun revokeAccess(): Flow<Response<Boolean>>
 
     fun getFirebaseAuthState(): Flow<Boolean>
-
-    fun getDisplayName(): String
-
-    fun getPhotoUrl(): String
 }

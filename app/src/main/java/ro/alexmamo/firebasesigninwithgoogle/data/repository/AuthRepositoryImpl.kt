@@ -37,7 +37,9 @@ class AuthRepositoryImpl  @Inject constructor(
     private var signInClient: GoogleSignInClient,
     private val db: FirebaseFirestore
 ) : AuthRepository {
-    override fun isUserAuthenticatedInFirebase() = auth.currentUser != null
+    override val isUserAuthenticatedInFirebase = auth.currentUser != null
+    override val displayName = auth.currentUser?.displayName ?: NO_DISPLAY_NAME
+    override val photoUrl = auth.currentUser?.photoUrl.toString()
 
     override suspend fun oneTapSignInWithGoogle() = flow {
         try {
@@ -122,8 +124,4 @@ class AuthRepositoryImpl  @Inject constructor(
             emit(Error(e))
         }
     }
-
-    override fun getDisplayName() = auth.currentUser?.displayName ?: NO_DISPLAY_NAME
-
-    override fun getPhotoUrl() = auth.currentUser?.photoUrl.toString()
 }
