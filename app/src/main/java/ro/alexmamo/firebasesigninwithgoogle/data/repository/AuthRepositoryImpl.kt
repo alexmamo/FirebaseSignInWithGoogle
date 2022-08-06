@@ -18,7 +18,6 @@ import ro.alexmamo.firebasesigninwithgoogle.core.Constants.DISPLAY_NAME
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.EMAIL
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.NO_DISPLAY_NAME
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.PHOTO_URL
-import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_ERROR_MESSAGE
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_UP_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.USERS_REF
@@ -49,13 +48,11 @@ class AuthRepositoryImpl  @Inject constructor(
             val signInResult = oneTapClient.beginSignIn(signInRequest).await()
             emit(Success(signInResult))
         } catch (e: Exception) {
-            if (e.message == SIGN_IN_ERROR_MESSAGE) {
-                try {
-                    val signUpResult = oneTapClient.beginSignIn(signUpRequest).await()
-                    emit(Success(signUpResult))
-                } catch (e: Exception) {
-                    emit(Error(e))
-                }
+            try {
+                val signUpResult = oneTapClient.beginSignIn(signUpRequest).await()
+                emit(Success(signUpResult))
+            } catch (e: Exception) {
+                emit(Error(e))
             }
         }
     }
