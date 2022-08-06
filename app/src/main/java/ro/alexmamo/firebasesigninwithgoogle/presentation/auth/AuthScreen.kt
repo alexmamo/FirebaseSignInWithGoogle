@@ -12,7 +12,6 @@ import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider.getCredential
 import ro.alexmamo.firebasesigninwithgoogle.components.ProgressBar
-import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_ERROR_MESSAGE
 import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthContent
@@ -65,30 +64,13 @@ fun AuthScreen(
         is Error -> oneTapSignInResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
-                if (it.message == SIGN_IN_ERROR_MESSAGE) {
-                    viewModel.oneTapSignUp()
-                }
             }
         }
     }
 
-    when(val oneTapSignUpResponse = viewModel.oneTapSignUpResponse) {
+    when(val signInWithGoogleResponse = viewModel.signInWithGoogleResponse) {
         is Loading -> ProgressBar()
-        is Success -> oneTapSignUpResponse.data?.let {
-            LaunchedEffect(it) {
-                launch(it)
-            }
-        }
-        is Error -> oneTapSignUpResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-            }
-        }
-    }
-
-    when(val signInResponse = viewModel.signInResponse) {
-        is Loading -> ProgressBar()
-        is Success -> signInResponse.data?.let { isNewUser ->
+        is Success -> signInWithGoogleResponse.data?.let { isNewUser ->
             if (isNewUser) {
                 LaunchedEffect(isNewUser) {
                     viewModel.createUser()
@@ -99,7 +81,7 @@ fun AuthScreen(
                 }
             }
         }
-        is Error -> signInResponse.e?.let {
+        is Error -> signInWithGoogleResponse.e?.let {
             LaunchedEffect(Unit) {
                 print(it)
             }

@@ -6,6 +6,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FieldValue.serverTimestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.channels.awaitClose
@@ -17,6 +18,7 @@ import ro.alexmamo.firebasesigninwithgoogle.core.Constants.DISPLAY_NAME
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.EMAIL
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.NO_DISPLAY_NAME
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.PHOTO_URL
+import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_ERROR_MESSAGE
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_UP_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.USERS_REF
@@ -44,20 +46,17 @@ class AuthRepositoryImpl  @Inject constructor(
     override suspend fun oneTapSignInWithGoogle() = flow {
         try {
             emit(Loading)
-            val result = oneTapClient.beginSignIn(signInRequest).await()
-            emit(Success(result))
+            val signInResult = oneTapClient.beginSignIn(signInRequest).await()
+            emit(Success(signInResult))
         } catch (e: Exception) {
-            emit(Error(e))
-        }
-    }
-
-    override suspend fun oneTapSignUpWithGoogle() = flow {
-        try {
-            emit(Loading)
-            val result = oneTapClient.beginSignIn(signUpRequest).await()
-            emit(Success(result))
-        } catch (e: Exception) {
-            emit(Error(e))
+            if (e.message == SIGN_IN_ERROR_MESSAGE) {
+                try {
+                    val signUpResult = oneTapClient.beginSignIn(signUpRequest).await()
+                    emit(Success(signUpResult))
+                } catch (e: Exception) {
+                    emit(Error(e))
+                }
+            }
         }
     }
 
@@ -65,7 +64,7 @@ class AuthRepositoryImpl  @Inject constructor(
         try {
             emit(Loading)
             val authResult = auth.signInWithCredential(googleCredential).await()
-            val isNewUser = authResult.additionalUserInfo?.isNewUser
+            val isNewUser = authResult.additionalUserInfo?.isNewUser ?: false
             emit(Success(isNewUser))
         } catch (e: Exception) {
             emit(Error(e))
@@ -76,12 +75,8 @@ class AuthRepositoryImpl  @Inject constructor(
         try {
             emit(Loading)
             auth.currentUser?.apply {
-                db.collection(USERS_REF).document(uid).set(mapOf(
-                    DISPLAY_NAME to displayName,
-                    EMAIL to email,
-                    PHOTO_URL to photoUrl?.toString(),
-                    CREATED_AT to serverTimestamp()
-                )).await()
+                val user = toUser()
+                db.collection(USERS_REF).document(uid).set(user).await()
                 emit(Success(true))
             }
         } catch (e: Exception) {
@@ -125,3 +120,10 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 }
+
+fun FirebaseUser.toUser() = mapOf(
+    DISPLAY_NAME to displayName,
+    EMAIL to email,
+    PHOTO_URL to photoUrl?.toString(),
+    CREATED_AT to serverTimestamp()
+)
