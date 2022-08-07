@@ -49,8 +49,6 @@ android {
 dependencies {
     //ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_version"
-    //LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$live_data_version"
     //Compose
     implementation "androidx.compose.material:material:$compose_version"
     //Hilt

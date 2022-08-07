@@ -19,6 +19,4 @@ interface AuthRepository {
     suspend fun signOut(): Flow<Response<Boolean>>
 
     suspend fun revokeAccess(): Flow<Response<Boolean>>
-
-    fun getFirebaseAuthState(): Flow<Boolean>
 }

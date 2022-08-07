@@ -25,16 +25,13 @@ class MainActivity : ComponentActivity() {
             NavGraph(
                 navController = navController
             )
-            checkAuthStatus()
-            getAuthState()
+            checkAuthState()
         }
     }
 
-    private fun checkAuthStatus() {
+    private fun checkAuthState() {
         if(viewModel.isUserAuthenticated) {
             navController.navigate(ProfileScreen.route)
         }
     }
-
-    private fun getAuthState() = viewModel.getAuthState()
 }

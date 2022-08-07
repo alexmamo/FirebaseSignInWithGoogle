@@ -4,13 +4,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.Success
@@ -36,12 +34,6 @@ class AuthViewModel @Inject constructor(
         private set
     var revokeAccessResponse by mutableStateOf<Response<Boolean>>(Success(false))
         private set
-
-    fun getAuthState() = liveData(Dispatchers.IO) {
-        repo.getFirebaseAuthState().collect { response ->
-            emit(response)
-        }
-    }
 
     fun oneTapSignIn() = viewModelScope.launch {
         repo.oneTapSignInWithGoogle().collect { response ->
