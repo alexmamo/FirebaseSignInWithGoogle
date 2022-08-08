@@ -81,8 +81,8 @@ class AuthRepositoryImpl  @Inject constructor(
     override suspend fun signOut() = flow {
         try {
             emit(Loading)
-            auth.signOut()
             oneTapClient.signOut().await()
+            auth.signOut()
             emit(Success(true))
         } catch (e: Exception) {
             emit(Error(e))
