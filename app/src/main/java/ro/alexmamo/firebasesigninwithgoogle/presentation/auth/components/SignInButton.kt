@@ -20,12 +20,12 @@ fun SignInButton(
     onClick: () -> Unit
 ) {
     Button(
-        onClick = onClick,
         modifier = Modifier.padding(bottom = 48.dp),
         shape = RoundedCornerShape(6.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = colorResource(R.color.purple_700)
-        )
+        ),
+        onClick = onClick
     ) {
         Image(
             painter = painterResource(

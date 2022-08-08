@@ -31,7 +31,9 @@ class MainActivity : ComponentActivity() {
 
     private fun checkAuthState() {
         if(viewModel.isUserAuthenticated) {
-            navController.navigate(ProfileScreen.route)
+            navigateToProfileScreen()
         }
     }
+
+    private fun navigateToProfileScreen() = navController.navigate(ProfileScreen.route)
 }

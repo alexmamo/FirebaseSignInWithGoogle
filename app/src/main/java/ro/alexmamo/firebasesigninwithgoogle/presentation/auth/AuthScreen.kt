@@ -36,7 +36,7 @@ fun AuthScreen(
         }
     )
 
-    val launcher =  rememberLauncherForActivityResult(StartIntentSenderForResult()) { result ->
+    val launcher = rememberLauncherForActivityResult(StartIntentSenderForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             try {
                 val credentials = viewModel.oneTapClient.getSignInCredentialFromIntent(result.data)
