@@ -61,7 +61,7 @@ fun AuthScreen(
                 launch(it)
             }
         }
-        is Error -> LaunchedEffect(Unit) {
+        is Failure -> LaunchedEffect(Unit) {
             print(oneTapSignInResponse.e)
         }
     }
@@ -75,7 +75,7 @@ fun AuthScreen(
                 }
             }
         }
-        is Error -> LaunchedEffect(Unit) {
+        is Failure -> LaunchedEffect(Unit) {
             print(signInWithGoogleResponse.e)
         }
     }

@@ -49,7 +49,7 @@ class AuthRepositoryImpl  @Inject constructor(
                 val signUpResult = oneTapClient.beginSignIn(signUpRequest).await()
                 emit(Success(signUpResult))
             } catch (e: Exception) {
-                emit(Error(e))
+                emit(Failure(e))
             }
         }
     }
@@ -64,7 +64,7 @@ class AuthRepositoryImpl  @Inject constructor(
             }
             emit(Success(true))
         } catch (e: Exception) {
-            emit(Error(e))
+            emit(Failure(e))
         }
     }
 
@@ -82,7 +82,7 @@ class AuthRepositoryImpl  @Inject constructor(
             auth.signOut()
             emit(Success(true))
         } catch (e: Exception) {
-            emit(Error(e))
+            emit(Failure(e))
         }
     }
 
@@ -97,7 +97,7 @@ class AuthRepositoryImpl  @Inject constructor(
             }
             emit(Success(true))
         } catch (e: Exception) {
-            emit(Error(e))
+            emit(Failure(e))
         }
     }
 }
