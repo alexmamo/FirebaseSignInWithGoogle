@@ -14,8 +14,6 @@ interface AuthRepository {
 
     suspend fun firebaseSignInWithGoogle(googleCredential: AuthCredential): Flow<Response<Boolean>>
 
-    suspend fun createUserInFirestore(): Flow<Response<Boolean>>
-
     suspend fun signOut(): Flow<Response<Boolean>>
 
     suspend fun revokeAccess(): Flow<Response<Boolean>>

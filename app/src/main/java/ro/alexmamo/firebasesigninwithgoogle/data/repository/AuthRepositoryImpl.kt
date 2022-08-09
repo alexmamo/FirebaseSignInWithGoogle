@@ -59,22 +59,19 @@ class AuthRepositoryImpl  @Inject constructor(
             emit(Loading)
             val authResult = auth.signInWithCredential(googleCredential).await()
             val isNewUser = authResult.additionalUserInfo?.isNewUser ?: false
-            emit(Success(isNewUser))
+            if (isNewUser) {
+                createUserInFirestore()
+            }
+            emit(Success(true))
         } catch (e: Exception) {
             emit(Error(e))
         }
     }
 
-    override suspend fun createUserInFirestore() = flow {
-        try {
-            emit(Loading)
-            auth.currentUser?.apply {
-                val user = toUser()
-                db.collection(USERS_REF).document(uid).set(user).await()
-                emit(Success(true))
-            }
-        } catch (e: Exception) {
-            emit(Error(e))
+    private suspend fun createUserInFirestore() {
+        auth.currentUser?.apply {
+            val user = toUser()
+            db.collection(USERS_REF).document(uid).set(user).await()
         }
     }
 

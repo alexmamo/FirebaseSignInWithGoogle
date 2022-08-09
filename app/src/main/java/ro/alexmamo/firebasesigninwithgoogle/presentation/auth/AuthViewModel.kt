@@ -26,13 +26,11 @@ class AuthViewModel @Inject constructor(
 
     var oneTapSignInResponse by mutableStateOf<Response<BeginSignInResult>>(Success(null))
         private set
-    var signInWithGoogleResponse by mutableStateOf<Response<Boolean>>(Success(null))
+    var signInWithGoogleResponse by mutableStateOf<Response<Boolean>>(Success(false))
         private set
-    var createUserResponse by mutableStateOf<Response<Boolean>>(Success(null))
+    var signOutResponse by mutableStateOf<Response<Boolean>>(Success(false))
         private set
-    var signOutResponse by mutableStateOf<Response<Boolean>>(Success(null))
-        private set
-    var revokeAccessResponse by mutableStateOf<Response<Boolean>>(Success(null))
+    var revokeAccessResponse by mutableStateOf<Response<Boolean>>(Success(false))
         private set
 
     fun oneTapSignIn() = viewModelScope.launch {
@@ -44,12 +42,6 @@ class AuthViewModel @Inject constructor(
     fun signInWithGoogle(googleCredential: AuthCredential) = viewModelScope.launch {
         repo.firebaseSignInWithGoogle(googleCredential).collect { response ->
             signInWithGoogleResponse = response
-        }
-    }
-
-    fun createUser() = viewModelScope.launch {
-        repo.createUserInFirestore().collect { response ->
-            createUserResponse = response
         }
     }
 

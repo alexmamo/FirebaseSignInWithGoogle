@@ -61,46 +61,22 @@ fun AuthScreen(
                 launch(it)
             }
         }
-        is Error -> oneTapSignInResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-            }
+        is Error -> LaunchedEffect(Unit) {
+            print(oneTapSignInResponse.e)
         }
     }
 
     when(val signInWithGoogleResponse = viewModel.signInWithGoogleResponse) {
         is Loading -> ProgressBar()
-        is Success -> signInWithGoogleResponse.data?.let { isNewUser ->
-            if (isNewUser) {
-                LaunchedEffect(isNewUser) {
-                    viewModel.createUser()
-                }
-            } else {
-                LaunchedEffect(Unit) {
+        is Success -> signInWithGoogleResponse.data?.let { isUserSignedIn ->
+            if (isUserSignedIn) {
+                LaunchedEffect(isUserSignedIn) {
                     navigateToProfileScreen()
                 }
             }
         }
-        is Error -> signInWithGoogleResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-            }
-        }
-    }
-
-    when(val createUserResponse = viewModel.createUserResponse) {
-        is Loading -> ProgressBar()
-        is Success -> createUserResponse.data?.let { isUserCreated ->
-            if (isUserCreated) {
-                LaunchedEffect(Unit) {
-                    navigateToProfileScreen()
-                }
-            }
-        }
-        is Error -> createUserResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-            }
+        is Error -> LaunchedEffect(Unit) {
+            print(signInWithGoogleResponse.e)
         }
     }
 }

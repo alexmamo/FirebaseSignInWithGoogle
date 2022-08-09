@@ -50,15 +50,13 @@ fun ProfileScreen(
         is Loading -> ProgressBar()
         is Success -> signOutResponse.data?.let { signedOut ->
             if (signedOut) {
-                LaunchedEffect(signOutResponse.data) {
+                LaunchedEffect(signedOut) {
                     navigateToAuthScreen()
                 }
             }
         }
-        is Error -> signOutResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-            }
+        is Error -> LaunchedEffect(Unit) {
+            print(signOutResponse.e)
         }
     }
 
@@ -76,16 +74,14 @@ fun ProfileScreen(
         is Loading -> ProgressBar()
         is Success -> revokeAccessResponse.data?.let { accessRevoked ->
             if (accessRevoked) {
-                LaunchedEffect(revokeAccessResponse.data) {
+                LaunchedEffect(accessRevoked) {
                     navigateToAuthScreen()
                 }
             }
         }
-        is Error -> revokeAccessResponse.e?.let {
-            LaunchedEffect(Unit) {
-                print(it)
-                showSnackBar()
-            }
+        is Error -> LaunchedEffect(Unit) {
+            print(revokeAccessResponse.e)
+            showSnackBar()
         }
     }
 }
