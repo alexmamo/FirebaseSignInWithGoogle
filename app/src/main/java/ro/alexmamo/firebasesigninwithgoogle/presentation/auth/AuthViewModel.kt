@@ -30,9 +30,9 @@ class AuthViewModel @Inject constructor(
         private set
     var createUserResponse by mutableStateOf<Response<Boolean>>(Success(null))
         private set
-    var signOutResponse by mutableStateOf<Response<Boolean>>(Success(false))
+    var signOutResponse by mutableStateOf<Response<Boolean>>(Success(null))
         private set
-    var revokeAccessResponse by mutableStateOf<Response<Boolean>>(Success(false))
+    var revokeAccessResponse by mutableStateOf<Response<Boolean>>(Success(null))
         private set
 
     fun oneTapSignIn() = viewModelScope.launch {

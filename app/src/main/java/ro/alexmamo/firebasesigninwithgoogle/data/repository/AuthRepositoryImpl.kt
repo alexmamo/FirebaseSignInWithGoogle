@@ -94,9 +94,9 @@ class AuthRepositoryImpl  @Inject constructor(
             emit(Loading)
             auth.currentUser?.apply {
                 db.collection(USERS_REF).document(uid).delete().await()
-                delete().await()
                 signInClient.revokeAccess().await()
                 oneTapClient.signOut().await()
+                delete().await()
             }
             emit(Success(true))
         } catch (e: Exception) {
