@@ -39,7 +39,7 @@ class AuthRepositoryImpl  @Inject constructor(
     override val displayName = auth.currentUser?.displayName ?: NO_DISPLAY_NAME
     override val photoUrl = auth.currentUser?.photoUrl.toString()
 
-    override suspend fun oneTapSignInWithGoogle() = flow {
+    override fun oneTapSignInWithGoogle() = flow {
         try {
             emit(Loading)
             val signInResult = oneTapClient.beginSignIn(signInRequest).await()
@@ -54,13 +54,15 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 
-    override suspend fun firebaseSignInWithGoogle(googleCredential: AuthCredential) = flow {
+    override fun firebaseSignInWithGoogle(googleCredential: AuthCredential) = flow {
         try {
             emit(Loading)
             val authResult = auth.signInWithCredential(googleCredential).await()
             val isNewUser = authResult.additionalUserInfo?.isNewUser ?: false
             if (isNewUser) {
-                createUserInFirestore()
+                auth.currentUser?.apply {
+                    db.collection(USERS_REF).document(uid).set(toUser()).await()
+                }
             }
             emit(Success(true))
         } catch (e: Exception) {
@@ -68,14 +70,7 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 
-    private suspend fun createUserInFirestore() {
-        auth.currentUser?.apply {
-            val user = toUser()
-            db.collection(USERS_REF).document(uid).set(user).await()
-        }
-    }
-
-    override suspend fun signOut() = flow {
+    override fun signOut() = flow {
         try {
             emit(Loading)
             oneTapClient.signOut().await()
@@ -86,7 +81,7 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 
-    override suspend fun revokeAccess() = flow {
+    override fun revokeAccess() = flow {
         try {
             emit(Loading)
             auth.currentUser?.apply {

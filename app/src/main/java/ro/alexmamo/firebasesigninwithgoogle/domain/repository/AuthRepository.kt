@@ -10,11 +10,11 @@ interface AuthRepository {
     val displayName: String
     val photoUrl: String
 
-    suspend fun oneTapSignInWithGoogle(): Flow<Response<BeginSignInResult>>
+    fun oneTapSignInWithGoogle(): Flow<Response<BeginSignInResult>>
 
-    suspend fun firebaseSignInWithGoogle(googleCredential: AuthCredential): Flow<Response<Boolean>>
+    fun firebaseSignInWithGoogle(googleCredential: AuthCredential): Flow<Response<Boolean>>
 
-    suspend fun signOut(): Flow<Response<Boolean>>
+    fun signOut(): Flow<Response<Boolean>>
 
-    suspend fun revokeAccess(): Flow<Response<Boolean>>
+    fun revokeAccess(): Flow<Response<Boolean>>
 }
