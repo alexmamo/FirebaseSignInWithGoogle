@@ -11,11 +11,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider.getCredential
-import ro.alexmamo.firebasesigninwithgoogle.components.ProgressBar
 import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
-import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthContent
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.AuthTopBar
+import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.OneTapSignIn
+import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.components.SignInWithGoogle
 
 @Composable
 fun AuthScreen(
@@ -54,29 +54,17 @@ fun AuthScreen(
         launcher.launch(intent)
     }
 
-    when(val oneTapSignInResponse = viewModel.oneTapSignInResponse) {
-        is Loading -> ProgressBar()
-        is Success -> oneTapSignInResponse.data?.let {
-            LaunchedEffect(it) {
-                launch(it)
-            }
-        }
-        is Failure -> LaunchedEffect(Unit) {
-            print(oneTapSignInResponse.e)
+    OneTapSignIn {
+        LaunchedEffect(it) {
+            launch(it)
         }
     }
 
-    when(val signInWithGoogleResponse = viewModel.signInWithGoogleResponse) {
-        is Loading -> ProgressBar()
-        is Success -> signInWithGoogleResponse.data?.let { isUserSignedIn ->
-            if (isUserSignedIn) {
-                LaunchedEffect(isUserSignedIn) {
-                    navigateToProfileScreen()
-                }
+    SignInWithGoogle { signedIn ->
+        if (signedIn) {
+            LaunchedEffect(signedIn) {
+                navigateToProfileScreen()
             }
-        }
-        is Failure -> LaunchedEffect(Unit) {
-            print(signInWithGoogleResponse.e)
         }
     }
 }

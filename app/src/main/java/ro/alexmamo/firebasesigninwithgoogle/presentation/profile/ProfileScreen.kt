@@ -8,14 +8,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
-import ro.alexmamo.firebasesigninwithgoogle.components.ProgressBar
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.REVOKE_ACCESS_MESSAGE
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_OUT
-import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
-import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileContent
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileTopBar
+import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.RevokeAccess
+import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.SignOut
 
 @Composable
 fun ProfileScreen(
@@ -46,17 +45,11 @@ fun ProfileScreen(
         scaffoldState = scaffoldState
     )
 
-    when(val signOutResponse = viewModel.signOutResponse) {
-        is Loading -> ProgressBar()
-        is Success -> signOutResponse.data?.let { signedOut ->
-            if (signedOut) {
-                LaunchedEffect(signedOut) {
-                    navigateToAuthScreen()
-                }
+    SignOut { signedOut ->
+        if (signedOut) {
+            LaunchedEffect(signedOut) {
+                navigateToAuthScreen()
             }
-        }
-        is Failure -> LaunchedEffect(Unit) {
-            print(signOutResponse.e)
         }
     }
 
@@ -70,18 +63,16 @@ fun ProfileScreen(
         }
     }
 
-    when(val revokeAccessResponse = viewModel.revokeAccessResponse) {
-        is Loading -> ProgressBar()
-        is Success -> revokeAccessResponse.data?.let { accessRevoked ->
+    RevokeAccess(
+        navigateToAuthScreen = { accessRevoked ->
             if (accessRevoked) {
                 LaunchedEffect(accessRevoked) {
                     navigateToAuthScreen()
                 }
             }
-        }
-        is Failure -> LaunchedEffect(Unit) {
-            print(revokeAccessResponse.e)
+        },
+        showSnackBar = {
             showSnackBar()
         }
-    }
+    )
 }
