@@ -17,7 +17,7 @@ import ro.alexmamo.firebasesigninwithgoogle.core.Constants.NO_DISPLAY_NAME
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.PHOTO_URL
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_UP_REQUEST
-import ro.alexmamo.firebasesigninwithgoogle.core.Constants.USERS_REF
+import ro.alexmamo.firebasesigninwithgoogle.core.Constants.USERS
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.AuthRepository
 import javax.inject.Inject
@@ -60,13 +60,18 @@ class AuthRepositoryImpl  @Inject constructor(
             val authResult = auth.signInWithCredential(googleCredential).await()
             val isNewUser = authResult.additionalUserInfo?.isNewUser ?: false
             if (isNewUser) {
-                auth.currentUser?.apply {
-                    db.collection(USERS_REF).document(uid).set(toUser()).await()
-                }
+                addUserToFirestore()
             }
             emit(Success(true))
         } catch (e: Exception) {
             emit(Failure(e))
+        }
+    }
+
+    private suspend fun addUserToFirestore() {
+        auth.currentUser?.apply {
+            val user = toUser()
+            db.collection(USERS).document(uid).set(user).await()
         }
     }
 
@@ -85,7 +90,7 @@ class AuthRepositoryImpl  @Inject constructor(
         try {
             emit(Loading)
             auth.currentUser?.apply {
-                db.collection(USERS_REF).document(uid).delete().await()
+                db.collection(USERS).document(uid).delete().await()
                 signInClient.revokeAccess().await()
                 oneTapClient.signOut().await()
                 delete().await()

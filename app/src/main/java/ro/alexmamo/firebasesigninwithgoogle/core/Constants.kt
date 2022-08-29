@@ -5,7 +5,7 @@ object Constants {
     const val TAG = "AppTag"
 
     //Collection References
-    const val USERS_REF = "users"
+    const val USERS = "users"
 
     //User fields
     const val DISPLAY_NAME = "displayName"
