@@ -21,16 +21,10 @@ class AuthViewModel @Inject constructor(
     val oneTapClient: SignInClient
 ): ViewModel() {
     val isUserAuthenticated get() = repo.isUserAuthenticatedInFirebase
-    val displayName get() = repo.displayName
-    val photoUrl get() = repo.photoUrl
 
     var oneTapSignInResponse by mutableStateOf<Response<BeginSignInResult>>(Success(null))
         private set
     var signInWithGoogleResponse by mutableStateOf<Response<Boolean>>(Success(false))
-        private set
-    var signOutResponse by mutableStateOf<Response<Boolean>>(Success(false))
-        private set
-    var revokeAccessResponse by mutableStateOf<Response<Boolean>>(Success(false))
         private set
 
     fun oneTapSignIn() = viewModelScope.launch {
@@ -42,18 +36,6 @@ class AuthViewModel @Inject constructor(
     fun signInWithGoogle(googleCredential: AuthCredential) = viewModelScope.launch {
         repo.firebaseSignInWithGoogle(googleCredential).collect { response ->
             signInWithGoogleResponse = response
-        }
-    }
-
-    fun signOut() = viewModelScope.launch {
-        repo.signOut().collect { response ->
-            signOutResponse = response
-        }
-    }
-
-    fun revokeAccess() = viewModelScope.launch {
-        repo.revokeAccess().collect { response ->
-            revokeAccessResponse = response
         }
     }
 }

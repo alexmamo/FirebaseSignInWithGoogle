@@ -16,16 +16,18 @@ import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
 import ro.alexmamo.firebasesigninwithgoogle.R
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_UP_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.data.repository.AuthRepositoryImpl
+import ro.alexmamo.firebasesigninwithgoogle.data.repository.ProfileRepositoryImpl
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.AuthRepository
+import ro.alexmamo.firebasesigninwithgoogle.domain.repository.ProfileRepository
 import javax.inject.Named
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 class AppModule {
     @Provides
     fun provideContext(
@@ -92,13 +94,24 @@ class AppModule {
         signInRequest: BeginSignInRequest,
         @Named(SIGN_UP_REQUEST)
         signUpRequest: BeginSignInRequest,
-        signInClient: GoogleSignInClient,
         db: FirebaseFirestore
     ): AuthRepository = AuthRepositoryImpl(
         auth = auth,
         oneTapClient = oneTapClient,
         signInRequest = signInRequest,
         signUpRequest = signUpRequest,
+        db = db
+    )
+
+    @Provides
+    fun provideProfileRepository(
+        auth: FirebaseAuth,
+        oneTapClient: SignInClient,
+        signInClient: GoogleSignInClient,
+        db: FirebaseFirestore
+    ): ProfileRepository = ProfileRepositoryImpl(
+        auth = auth,
+        oneTapClient = oneTapClient,
         signInClient = signInClient,
         db = db
     )

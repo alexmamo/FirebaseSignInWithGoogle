@@ -6,11 +6,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ro.alexmamo.firebasesigninwithgoogle.components.ProgressBar
 import ro.alexmamo.firebasesigninwithgoogle.core.Utils.Companion.print
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.*
-import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
+import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileViewModel
 
 @Composable
 fun SignOut(
-    viewModel: AuthViewModel = hiltViewModel(),
+    viewModel: ProfileViewModel = hiltViewModel(),
     navigateToAuthScreen: @Composable (signedOut: Boolean) -> Unit
 ) {
     when(val signOutResponse = viewModel.signOutResponse) {

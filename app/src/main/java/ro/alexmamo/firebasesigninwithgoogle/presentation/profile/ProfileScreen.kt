@@ -10,7 +10,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.REVOKE_ACCESS_MESSAGE
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_OUT
-import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileContent
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.ProfileTopBar
 import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.RevokeAccess
@@ -18,7 +17,7 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.components.Sign
 
 @Composable
 fun ProfileScreen(
-    viewModel: AuthViewModel = hiltViewModel(),
+    viewModel: ProfileViewModel = hiltViewModel(),
     navigateToAuthScreen: () -> Unit
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -45,13 +44,15 @@ fun ProfileScreen(
         scaffoldState = scaffoldState
     )
 
-    SignOut { signedOut ->
-        if (signedOut) {
-            LaunchedEffect(signedOut) {
-                navigateToAuthScreen()
+    SignOut(
+        navigateToAuthScreen = { signedOut ->
+            if (signedOut) {
+                LaunchedEffect(signedOut) {
+                    navigateToAuthScreen()
+                }
             }
         }
-    }
+    )
 
     fun showSnackBar() = coroutineScope.launch {
         val result = scaffoldState.snackbarHostState.showSnackbar(
