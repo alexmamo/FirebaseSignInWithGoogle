@@ -54,17 +54,21 @@ fun AuthScreen(
         launcher.launch(intent)
     }
 
-    OneTapSignIn {
-        LaunchedEffect(it) {
-            launch(it)
-        }
-    }
-
-    SignInWithGoogle { signedIn ->
-        if (signedIn) {
-            LaunchedEffect(signedIn) {
-                navigateToProfileScreen()
+    OneTapSignIn(
+        launch = {
+            LaunchedEffect(it) {
+                launch(it)
             }
         }
-    }
+    )
+
+    SignInWithGoogle(
+        navigateToHomeScreen = { signedIn ->
+            if (signedIn) {
+                LaunchedEffect(signedIn) {
+                    navigateToProfileScreen()
+                }
+            }
+        }
+    )
 }
