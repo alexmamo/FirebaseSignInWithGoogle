@@ -5,14 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.Success
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.AuthRepository
+import ro.alexmamo.firebasesigninwithgoogle.domain.repository.OneTapSignInResponse
+import ro.alexmamo.firebasesigninwithgoogle.domain.repository.SignInWithGoogleResponse
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,9 +22,9 @@ class AuthViewModel @Inject constructor(
 ): ViewModel() {
     val isUserAuthenticated get() = repo.isUserAuthenticatedInFirebase
 
-    var oneTapSignInResponse by mutableStateOf<Response<BeginSignInResult>>(Success(null))
+    var oneTapSignInResponse by mutableStateOf<OneTapSignInResponse>(Success(null))
         private set
-    var signInWithGoogleResponse by mutableStateOf<Response<Boolean>>(Success(false))
+    var signInWithGoogleResponse by mutableStateOf<SignInWithGoogleResponse>(Success(false))
         private set
 
     fun oneTapSignIn() = viewModelScope.launch {
