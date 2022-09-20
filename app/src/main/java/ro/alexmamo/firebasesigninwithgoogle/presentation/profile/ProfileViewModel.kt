@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.Loading
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.Success
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.ProfileRepository
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.RevokeAccessResponse
@@ -26,14 +27,12 @@ class ProfileViewModel @Inject constructor(
         private set
 
     fun signOut() = viewModelScope.launch {
-        repo.signOut().collect { response ->
-            signOutResponse = response
-        }
+        signOutResponse = Loading
+        signOutResponse = repo.signOut()
     }
 
     fun revokeAccess() = viewModelScope.launch {
-        repo.revokeAccess().collect { response ->
-            revokeAccessResponse = response
-        }
+        revokeAccessResponse = Loading
+        revokeAccessResponse = repo.revokeAccess()
     }
 }

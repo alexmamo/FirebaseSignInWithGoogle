@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.AuthCredential
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.Loading
 import ro.alexmamo.firebasesigninwithgoogle.domain.model.Response.Success
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.AuthRepository
 import ro.alexmamo.firebasesigninwithgoogle.domain.repository.OneTapSignInResponse
@@ -28,14 +29,12 @@ class AuthViewModel @Inject constructor(
         private set
 
     fun oneTapSignIn() = viewModelScope.launch {
-        repo.oneTapSignInWithGoogle().collect { response ->
-            oneTapSignInResponse = response
-        }
+        oneTapSignInResponse = Loading
+        oneTapSignInResponse = repo.oneTapSignInWithGoogle()
     }
 
     fun signInWithGoogle(googleCredential: AuthCredential) = viewModelScope.launch {
-        repo.firebaseSignInWithGoogle(googleCredential).collect { response ->
-            signInWithGoogleResponse = response
-        }
+        oneTapSignInResponse = Loading
+        signInWithGoogleResponse = repo.firebaseSignInWithGoogle(googleCredential)
     }
 }
