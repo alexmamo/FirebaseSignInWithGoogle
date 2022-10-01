@@ -4,7 +4,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarResult.ActionPerformed
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
@@ -47,9 +46,7 @@ fun ProfileScreen(
     SignOut(
         navigateToAuthScreen = { signedOut ->
             if (signedOut) {
-                LaunchedEffect(signedOut) {
-                    navigateToAuthScreen()
-                }
+                navigateToAuthScreen()
             }
         }
     )
@@ -67,9 +64,7 @@ fun ProfileScreen(
     RevokeAccess(
         navigateToAuthScreen = { accessRevoked ->
             if (accessRevoked) {
-                LaunchedEffect(accessRevoked) {
-                    navigateToAuthScreen()
-                }
+                navigateToAuthScreen()
             }
         },
         showSnackBar = {

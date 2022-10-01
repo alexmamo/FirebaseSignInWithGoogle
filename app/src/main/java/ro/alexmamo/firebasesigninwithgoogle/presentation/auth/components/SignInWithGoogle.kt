@@ -11,12 +11,14 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
 @Composable
 fun SignInWithGoogle(
     viewModel: AuthViewModel = hiltViewModel(),
-    navigateToHomeScreen: @Composable (signedIn: Boolean) -> Unit
+    navigateToHomeScreen: (signedIn: Boolean) -> Unit
 ) {
     when(val signInWithGoogleResponse = viewModel.signInWithGoogleResponse) {
         is Loading -> ProgressBar()
         is Success -> signInWithGoogleResponse.data?.let { signedIn ->
-            navigateToHomeScreen(signedIn)
+            LaunchedEffect(signedIn) {
+                navigateToHomeScreen(signedIn)
+            }
         }
         is Failure -> LaunchedEffect(Unit) {
             print(signInWithGoogleResponse.e)

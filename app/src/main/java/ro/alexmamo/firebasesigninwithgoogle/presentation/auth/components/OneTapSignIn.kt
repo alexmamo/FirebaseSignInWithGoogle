@@ -12,12 +12,14 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.auth.AuthViewModel
 @Composable
 fun OneTapSignIn(
     viewModel: AuthViewModel = hiltViewModel(),
-    launch: @Composable (result: BeginSignInResult) -> Unit
+    launch: (result: BeginSignInResult) -> Unit
 ) {
     when(val oneTapSignInResponse = viewModel.oneTapSignInResponse) {
         is Loading -> ProgressBar()
         is Success -> oneTapSignInResponse.data?.let {
-            launch(it)
+            LaunchedEffect(it) {
+                launch(it)
+            }
         }
         is Failure -> LaunchedEffect(Unit) {
             print(oneTapSignInResponse.e)

@@ -11,13 +11,15 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileViewMode
 @Composable
 fun RevokeAccess(
     viewModel: ProfileViewModel = hiltViewModel(),
-    navigateToAuthScreen: @Composable (accessRevoked: Boolean) -> Unit,
+    navigateToAuthScreen: (accessRevoked: Boolean) -> Unit,
     showSnackBar: () -> Unit
 ) {
     when(val revokeAccessResponse = viewModel.revokeAccessResponse) {
         is Loading -> ProgressBar()
         is Success -> revokeAccessResponse.data?.let { accessRevoked ->
-            navigateToAuthScreen(accessRevoked)
+            LaunchedEffect(accessRevoked) {
+                navigateToAuthScreen(accessRevoked)
+            }
         }
         is Failure -> LaunchedEffect(Unit) {
             print(revokeAccessResponse.e)

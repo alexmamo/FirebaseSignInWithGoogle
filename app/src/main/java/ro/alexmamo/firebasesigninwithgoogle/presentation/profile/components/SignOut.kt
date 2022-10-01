@@ -11,12 +11,14 @@ import ro.alexmamo.firebasesigninwithgoogle.presentation.profile.ProfileViewMode
 @Composable
 fun SignOut(
     viewModel: ProfileViewModel = hiltViewModel(),
-    navigateToAuthScreen: @Composable (signedOut: Boolean) -> Unit
+    navigateToAuthScreen: (signedOut: Boolean) -> Unit
 ) {
     when(val signOutResponse = viewModel.signOutResponse) {
         is Loading -> ProgressBar()
         is Success -> signOutResponse.data?.let { signedOut ->
-            navigateToAuthScreen(signedOut)
+            LaunchedEffect(signedOut) {
+                navigateToAuthScreen(signedOut)
+            }
         }
         is Failure -> LaunchedEffect(Unit) {
             print(signOutResponse.e)

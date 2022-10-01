@@ -6,7 +6,6 @@ import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
@@ -56,18 +55,14 @@ fun AuthScreen(
 
     OneTapSignIn(
         launch = {
-            LaunchedEffect(it) {
-                launch(it)
-            }
+            launch(it)
         }
     )
 
     SignInWithGoogle(
         navigateToHomeScreen = { signedIn ->
             if (signedIn) {
-                LaunchedEffect(signedIn) {
-                    navigateToProfileScreen()
-                }
+                navigateToProfileScreen()
             }
         }
     )
