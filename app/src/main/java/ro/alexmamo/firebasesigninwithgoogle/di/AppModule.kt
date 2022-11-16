@@ -17,6 +17,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import ro.alexmamo.firebasesigninwithgoogle.R
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_IN_REQUEST
 import ro.alexmamo.firebasesigninwithgoogle.core.Constants.SIGN_UP_REQUEST
@@ -30,11 +31,6 @@ import javax.inject.Named
 @InstallIn(ViewModelComponent::class)
 class AppModule {
     @Provides
-    fun provideContext(
-        app: Application
-    ): Context = app.applicationContext
-
-    @Provides
     fun provideFirebaseAuth() = Firebase.auth
 
     @Provides
@@ -42,6 +38,7 @@ class AppModule {
 
     @Provides
     fun provideOneTapClient(
+        @ApplicationContext
         context: Context
     ) = Identity.getSignInClient(context)
 
