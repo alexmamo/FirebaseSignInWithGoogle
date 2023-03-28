@@ -7,6 +7,7 @@ plugins {
 }
 
 android {
+    namespace "ro.alexmamo.firebasesigninwithgoogle"
     compileSdk 33
 
     defaultConfig {
@@ -26,11 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_16
+        targetCompatibility JavaVersion.VERSION_16
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
+        jvmTarget = JavaVersion.VERSION_16
     }
     buildFeatures {
         compose true
@@ -38,30 +39,21 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
     }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
-    namespace "ro.alexmamo.firebasesigninwithgoogle"
 }
 
 dependencies {
     //Compose
     implementation platform("androidx.compose:compose-bom:$compose_bom_version")
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose"
     implementation "androidx.compose.material:material"
-    //Navigation Compose
-    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_compose_version"
     //Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    //Navigation Navigation Compose
+    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_compose_version"
     //Firebase
     implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
     implementation "com.google.firebase:firebase-auth-ktx"
     implementation "com.google.firebase:firebase-firestore-ktx"
-    //Play Services
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$play_services_version"
     //Play Services Auth
     implementation "com.google.android.gms:play-services-auth:$play_services_auth_version"
     //Accompanist
