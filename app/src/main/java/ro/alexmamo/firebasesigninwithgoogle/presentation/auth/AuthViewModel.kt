@@ -34,7 +34,7 @@ class AuthViewModel @Inject constructor(
     }
 
     fun signInWithGoogle(googleCredential: AuthCredential) = viewModelScope.launch {
-        oneTapSignInResponse = Loading
+        signInWithGoogleResponse = Loading
         signInWithGoogleResponse = repo.firebaseSignInWithGoogle(googleCredential)
     }
 }
